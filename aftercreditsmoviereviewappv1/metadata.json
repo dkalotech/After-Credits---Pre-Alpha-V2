@@ -1,7 +1,0 @@
-{
-  "name": "AfterCredits - Movie Review App V1",
-  "description": "An energetic, gamified social movie review platform with the Prism Index™ weighted rating system.",
-  "requestFramePermissions": [
-    "camera"
-  ]
-}
