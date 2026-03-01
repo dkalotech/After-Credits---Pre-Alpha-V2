@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AfterCredits</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #000000;
+      --surface-1: #0a0a0a;
+      --surface-2: #121212;
+      --surface-3: #1c1c1e;
+      --accent: #e50914;
+      --text-primary: #ffffff;
+      --text-secondary: #8e8e93;
+      --text-tertiary: #48484a;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-deep);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    .premium-blur {
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(0, 0, 0, 0.75);
+    }
+
+    .shadow-premium {
+      box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.8);
+    }
+
+    .shadow-glow-red {
+      box-shadow: 0 0 24px -4px rgba(229, 9, 20, 0.4);
+    }
+
+    .antique-gold-frame {
+      position: relative;
+      padding: 6px;
+      background: linear-gradient(135deg, 
+        #bf953f 0%, 
+        #fcf6ba 25%, 
+        #b38728 50%, 
+        #fbf5b7 75%, 
+        #aa771c 100%
+      );
+      box-shadow: 
+        0 10px 30px -5px rgba(179, 135, 40, 0.4),
+        inset 0 0 4px rgba(0,0,0,0.4);
+      border-radius: 4px;
+    }
+
+    .antique-gold-frame::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    /* Distressed Frame for the Basement */
+    .distressed-frame {
+      position: relative;
+      padding: 4px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      box-shadow: inset 0 0 15px rgba(0,0,0,1);
+      border-radius: 2px;
+      filter: grayscale(1) contrast(1.2);
+    }
+
+    /* Broken Glass Effect Overlay */
+    .broken-glass-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .broken-glass-overlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(120deg, transparent 49.5%, rgba(255,255,255,0.15) 50%, transparent 50.5%),
+        linear-gradient(200deg, transparent 49.5%, rgba(255,255,255,0.1) 50%, transparent 50.5%),
+        linear-gradient(45deg, transparent 49.8%, rgba(255,255,255,0.2) 50%, transparent 50.2%),
+        linear-gradient(160deg, transparent 49.7%, rgba(255,255,255,0.1) 50%, transparent 50.3%);
+      background-size: 100% 100%;
+      mix-blend-mode: screen;
+      opacity: 0.8;
+    }
+
+    .broken-glass-overlay::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 70% 30%, transparent 0%, rgba(255,255,255,0.05) 20%, transparent 21%);
+      background-size: 150px 150px;
+      opacity: 0.5;
+    }
+
+    @keyframes revealUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popcornPop {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.4) rotate(15deg); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes kernelBlast {
+      0% { 
+        transform: translate(0, 0) scale(0) rotate(0deg); 
+        opacity: 0;
+      }
+      20% { 
+        opacity: 1; 
+        transform: translate(calc(var(--vx) * 0.2), calc(var(--vy) * 0.2)) scale(1.2) rotate(45deg);
+      }
+      100% { 
+        transform: translate(var(--vx), var(--vy)) scale(0.5) rotate(var(--vr)); 
+        opacity: 0;
+      }
+    }
+
+    .animate-reveal {
+      animation: revealUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .pop-effect {
+      animation: popcornPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .kernel {
+      position: absolute;
+      pointer-events: none;
+      z-index: 60;
+      animation: kernelBlast 0.6s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      background: transparent;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 22px;
+      width: 22px;
+      border-radius: 50%;
+      background: #ffffff;
+      cursor: pointer;
+      margin-top: -9px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      border: 4px solid #000;
+    }
+
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      background: #2c2c2e;
+      border-radius: 4px;
+    }
+
+    h1, h2, h3, h4 {
+      letter-spacing: -0.03em;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+<script type="module" src="./index.tsx"></script>
+</body>
+</html>
